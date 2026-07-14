@@ -5,3 +5,6 @@
 
 # Helm resources
 charts/*/charts
+
+# values for templating tests
+test-values.yaml

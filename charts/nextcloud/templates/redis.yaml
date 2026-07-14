@@ -1,0 +1,42 @@
+{{- if .Values.redis.enabled }}
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ template "nextcloud.redis.fullname" . }}
+  labels:
+    {{- include "nextcloud.labels"  ( dict "component" "cache"  "rootContext" $ ) | nindent 4 }}
+    {{- with .Values.deploymentLabels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- with .Values.deploymentAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  selector:
+    {{- include "nextcloud.selectorLabels"  ( dict "component" "cache"  "rootContext" $ ) | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "nextcloud.labels"  ( dict "component" "cache"  "rootContext" $ ) | nindent 8 }}
+        {{- with .Values.deploymentLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.image.pullSecrets }}
+      imagePullSecrets:
+        {{- range . }}
+        - name: {{ . }}
+        {{- end}}
+      {{- end }}
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: redis
+        image: {{ include "redis.image" . }}
+        ports:
+        - containerPort: {{ .Values.redis.port }}
+          name: redis
+
+
+
+{{- end }}
