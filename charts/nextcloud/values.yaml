@@ -573,15 +573,15 @@ externalRedis:
     passwordKey: redis-password
 
 ##
-## Redis chart configuration
-## for more options see https://github.com/bitnami/charts/tree/main/bitnami/redis
+## Redis image configuration
 ##
 
 redis:
   enabled: false
   image:
     registry: docker.io
-    repository: bitnamilegacy/redis
+    repository: library/redis:latest
+  port: 6379
   auth:
     enabled: true
     password: "changeme"
@@ -592,12 +592,6 @@ redis:
   # Since Redis is used for caching only, you might want to use a storageClass with different reclaim policy and backup settings
   global:
     storageClass: ""
-  master:
-    persistence:
-      enabled: true
-  replica:
-    persistence:
-      enabled: true
 
 ##
 ## Collabora chart configuration

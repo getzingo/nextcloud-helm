@@ -39,13 +39,24 @@ Create chart name and version as used by the chart label.
 {{- end -}}
 
 {{/*
-Create image name that is used in the deployment
+Create image name that is used in the nextcloud deployment
 */}}
 {{- define "nextcloud.image" -}}
 {{- if .Values.image.tag -}}
 {{- printf "%s/%s:%s" (coalesce .Values.global.image.registry .Values.image.registry) .Values.image.repository .Values.image.tag -}}
 {{- else -}}
 {{- printf "%s/%s:%s-%s" (coalesce .Values.global.image.registry .Values.image.registry) .Values.image.repository .Chart.AppVersion .Values.image.flavor -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Create image name that is used in the redis.sts
+*/}}
+{{- define "redis.image" -}}
+{{- if .Values.image.tag -}}
+{{- printf "%s/%s:%s" (coalesce .Values.global.image.registry .Values.image.registry) .Values.image.repository .Values.image.tag -}}
+{{- else -}}
+{{- printf "%s/%s" (coalesce .Values.global.image.registry .Values.image.registry) .Values.redis.image.repository -}}
 {{- end -}}
 {{- end -}}
 
@@ -179,9 +190,9 @@ Redis env vars
 {{- define "nextcloud.env.redis" -}}
 {{- if .Values.redis.enabled }}
 - name: REDIS_HOST
-  value: {{ template "nextcloud.redis.fullname" . }}-master
+  value: {{ template "nextcloud.redis.fullname" . }}
 - name: REDIS_HOST_PORT
-  value: {{ .Values.redis.master.service.ports.redis | quote }}
+  value: {{ .Values.redis.ports | quote }}
 {{- if .Values.redis.auth.enabled }}
 {{- if and .Values.redis.auth.existingSecret .Values.redis.auth.existingSecretPasswordKey }}
 - name: REDIS_HOST_PASSWORD

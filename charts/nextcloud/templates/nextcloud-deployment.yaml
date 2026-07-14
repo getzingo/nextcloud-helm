@@ -25,9 +25,6 @@ spec:
     metadata:
       labels:
         {{- include "nextcloud.selectorLabels"  ( dict "component" "app"  "rootContext" $ ) | nindent 8 }}
-        {{- if .Values.redis.enabled }}
-        {{ template "nextcloud.redis.fullname" . }}-client: "true"
-        {{- end }}
         {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}

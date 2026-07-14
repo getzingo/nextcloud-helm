@@ -1,0 +1,23 @@
+{{- if .Values.redis.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "nextcloud.redis.fullname" . }}
+  labels:
+    {{- include "nextcloud.labels"  ( dict "component" "cache"  "rootContext" $ ) | nindent 4 }}
+    app.kubernetes.io/monitor: enabled
+  # TODO:
+  {{- with .Values.service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  selector:
+    {{- include "nextcloud.selectorLabels"  ( dict "component" "cache"  "rootContext" $ ) | nindent 6 }}
+  type: ClusterIP
+  ports:
+  - name: redis
+    port: {{ .Values.redis.port }}
+    targetPort: {{ .Values.redis.port }}
+    protocol: TCP
+{{- end }}
