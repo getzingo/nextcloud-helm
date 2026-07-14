@@ -314,6 +314,23 @@ nextcloud:
   ##
   ## Extra environment variables
   extraEnv:
+    - name: PHP_MAX_TIME
+      value: 3600
+    - name: PHP_MEMORY_LIMIT
+      value: 512M
+    - name: PHP_OPCACHE_MEMORY_CONSUMPTION
+      value: 128
+    - name: PHP_PM_MAX_CHILDREN
+      value: 25
+    - name: PHP_PM_MAX_REQUESTS
+      value: 500
+    - name: PHP_PM_MAX_SPARE_SERVERS
+      value: 10
+    - name: PHP_PM_MIN_SPARE_SERVERS
+      value: 5
+    - name: PHP_PM_START_SERVERS
+      value: 5
+
   #  - name: SOME_SECRET_ENV
   #    valueFrom:
   #      secretKeyRef:
