@@ -4,10 +4,11 @@ kind: StatefulSet
 metadata:
   name: {{ template "nextcloud.redis.fullname" . }}
   labels:
-    {{- include "nextcloud.labels"  ( dict "component" "cache"  "rootContext" $ ) | nindent 4 }}
-    {{- with .Values.deploymentLabels }}
-    {{- toYaml . | nindent 4 }}
-    {{- end }}
+    matchLabels:
+      {{- include "nextcloud.labels"  ( dict "component" "cache"  "rootContext" $ ) | nindent 6 }}
+      {{- with .Values.deploymentLabels }}
+      {{- toYaml . | nindent 6 }}
+      {{- end }}
   {{- with .Values.deploymentAnnotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
