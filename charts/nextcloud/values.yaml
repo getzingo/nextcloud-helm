@@ -597,7 +597,8 @@ redis:
   enabled: false
   image:
     registry: docker.io
-    repository: library/redis:latest
+    repository: library/redis
+    tag: latest
   port: 6379
   auth:
     enabled: true
