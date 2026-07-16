@@ -53,10 +53,8 @@ Create image name that is used in the nextcloud deployment
 Create image name that is used in the redis.sts
 */}}
 {{- define "redis.image" -}}
-{{- if .Values.image.tag -}}
-{{- printf "%s/%s:%s" (coalesce .Values.global.image.registry .Values.image.registry) .Values.image.repository .Values.image.tag -}}
-{{- else -}}
-{{- printf "%s/%s" (coalesce .Values.global.image.registry .Values.image.registry) .Values.redis.image.repository -}}
+{{- if .Values.redis.enabled -}}
+{{- printf "%s/%s:%s" .Values.redis.image.registry .Values.redis.image.repository .Values.redis.image.tag -}}
 {{- end -}}
 {{- end -}}
 
