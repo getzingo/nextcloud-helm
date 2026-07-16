@@ -4,18 +4,19 @@ kind: StatefulSet
 metadata:
   name: {{ template "nextcloud.redis.fullname" . }}
   labels:
-    matchLabels:
-      {{- include "nextcloud.labels"  ( dict "component" "cache"  "rootContext" $ ) | nindent 6 }}
-      {{- with .Values.deploymentLabels }}
-      {{- toYaml . | nindent 6 }}
-      {{- end }}
+    {{- include "nextcloud.labels"  ( dict "component" "cache"  "rootContext" $ ) | nindent 4 }}
+    {{- with .Values.deploymentLabels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
   {{- with .Values.deploymentAnnotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
+  serviceName: {{ template "nextcloud.redis.fullname" . }}
   selector:
-    {{- include "nextcloud.selectorLabels"  ( dict "component" "cache"  "rootContext" $ ) | nindent 6 }}
+    matchLabels:
+      {{- include "nextcloud.selectorLabels"  ( dict "component" "cache"  "rootContext" $ ) | nindent 6 }}
   template:
     metadata:
       labels:
