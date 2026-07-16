@@ -36,6 +36,18 @@ spec:
         ports:
         - containerPort: {{ .Values.redis.port }}
           name: redis
+      volumeMounts:
+        - name: redis-pvc
+          mountPath: /data
+  volumeClaimTemplates:
+  - metadata:
+      name: redis-pvc
+    spec:
+      accessModes: [ReadWriteOnce]
+      storageClassName: {{ .Values.redis.storageClass }}
+      resources:
+        requests:
+          storage: 1Gi
 
 
 
