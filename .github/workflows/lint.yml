@@ -1,0 +1,40 @@
+name: lint
+on:
+  push:
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Install Helm
+        uses: azure/setup-helm@v5
+        with:
+          version: v4.2.3
+      
+      - name: Download kubeconform
+        run: |
+          arch="$(uname -m)"
+          case "$arch" in
+            x86_64) arch=amd64 ;;
+            aarch64) arch=arm64 ;;
+            arm64) arch=arm64 ;;
+            armv7l) arch=armv7 ;;
+            armv6l) arch=armv6 ;;
+            *) echo "Unsupported architecture: $arch" >&2; exit 1 ;;
+          esac
+          curl -L "https://github.com/yannh/kubeconform/releases/download/v0.8.0/kubeconform-linux-$arch.tar.gz" \
+            | tar xz &&
+          chmod +x kubeconform
+
+      - name: Lint
+        run: |
+          echo "testing"
+          helm lint charts/nextcloud
+          echo "Confirming API validity"
+          for v in charts/nextcloud/test-values/*.yaml; do
+            echo "testing with $v values"
+            helm template charts/nextcloud -f ${v} \
+            | ./kubeconform -strict -summary -verbose
+          done
