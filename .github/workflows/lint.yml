@@ -28,7 +28,7 @@ jobs:
             | tar xz &&
           chmod +x kubeconform
 
-      - name: Lint
+      - name: Lint and yaml syntax check
         run: |
           echo "testing"
           helm lint charts/nextcloud
