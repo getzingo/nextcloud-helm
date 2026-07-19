@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/getzingo/nextcloud-helm/compare/1.0.1...1.0.2) (2026-07-19)
+
+
+### Bug Fixes
+
+* inadvertent errors ([30cd42a](https://github.com/getzingo/nextcloud-helm/commit/30cd42ad3134633001b6d5104ef8d4ee703c8f5e))
+
 ## [1.0.1](https://github.com/getzingo/nextcloud-helm/compare/1.0.0...1.0.1) (2026-07-19)
 
 
