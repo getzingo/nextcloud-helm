@@ -375,7 +375,6 @@ spec:
         {{- with .Values.nextcloud.extraVolumes }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
-      serviceAccountName: {{ .Values.rbac.serviceaccount.name }}
       {{- with .Values.dnsConfig }}
       dnsConfig:
         {{- toYaml . | nindent 8 }}
