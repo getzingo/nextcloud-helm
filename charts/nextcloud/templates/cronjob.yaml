@@ -122,13 +122,6 @@ spec:
             {{- with .Values.nextcloud.podSecurityContext }}
             {{- toYaml . | nindent 12 }}
             {{- else }}
-            {{- if .Values.nginx.enabled }}
-            # Will mount configuration files as www-data (id: 82) for nextcloud
-            fsGroup: 82
-            {{- else }}
-            # Will mount configuration files as www-data (id: 33) for nextcloud
-            fsGroup: 33
-            {{- end }}
             {{- end }}{{/* end-with podSecurityContext */}}
           {{- if .Values.rbac.enabled }}
           serviceAccountName: {{ .Values.rbac.serviceaccount.name }}
