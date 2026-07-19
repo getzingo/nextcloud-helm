@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/getzingo/nextcloud-helm/compare/1.0.0...1.0.1) (2026-07-19)
+
+
+### Bug Fixes
+
+* removed fs-groups ([bff991b](https://github.com/getzingo/nextcloud-helm/commit/bff991b419c5da7f5fe86b1a73bf8faab12484bb))
+
 ## 1.0.0 (2026-07-18)
 
 
