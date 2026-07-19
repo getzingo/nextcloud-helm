@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.3](https://github.com/getzingo/nextcloud-helm/compare/1.0.2...1.0.3) (2026-07-19)
+
+
+### Bug Fixes
+
+* removed sa ([d6788f6](https://github.com/getzingo/nextcloud-helm/commit/d6788f68f0f2f04bff25bb19202ac0b94978c037))
+
 ## [1.0.2](https://github.com/getzingo/nextcloud-helm/compare/1.0.1...1.0.2) (2026-07-19)
 
 
