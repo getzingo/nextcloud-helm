@@ -56,10 +56,6 @@ spec:
                 {{- include "nextcloud.env" $ | nindent 16 }}
               resources:
                 {{- toYaml .resources | nindent 16 }}
-              {{- with .securityContext }}
-              securityContext:
-                {{- toYaml . | nindent 16 }}
-              {{- end }}
               volumeMounts:
                 {{- include "nextcloud.volumeMounts" $ | trim | nindent 16 }}
           {{- with $.Values.nodeSelector }}

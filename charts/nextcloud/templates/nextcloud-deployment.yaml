@@ -68,10 +68,6 @@ spec:
             {{- include "nextcloud.env" . | nindent 12 }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          {{- with .Values.nextcloud.securityContext }}
-          securityContext:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
           volumeMounts:
             {{- include "nextcloud.volumeMounts" . | trim | nindent 12 }}
             {{- range $hook, $shell := .Values.nextcloud.hooks }}
@@ -379,24 +375,7 @@ spec:
         {{- with .Values.nextcloud.extraVolumes }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
-      securityContext:
-        {{- with .Values.securityContext }}
-        {{- toYaml . | nindent 8 }}
-        {{- end }}
-        {{- with .Values.nextcloud.podSecurityContext }}
-        {{- toYaml . | nindent 8 }}
-        {{- else }}
-        {{- if .Values.nginx.enabled }}
-        # Will mount configuration files as www-data (id: 82) for nextcloud
-        fsGroup: 82
-        {{- else }}
-        # Will mount configuration files as www-data (id: 33) for nextcloud
-        fsGroup: 33
-        {{- end }}
-        {{- end }}{{/* end-with podSecurityContext */}}
-      {{- if .Values.rbac.enabled }}
       serviceAccountName: {{ .Values.rbac.serviceaccount.name }}
-      {{- end }}
       {{- with .Values.dnsConfig }}
       dnsConfig:
         {{- toYaml . | nindent 8 }}
